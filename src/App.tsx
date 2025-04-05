@@ -279,18 +279,6 @@ const App = () => {
     console.log("Selected Skip:", skip);
   };
 
-  // Scrolling effect when footer appears
-  useEffect(() => {
-    if (selectedSkip) {
-      document.body.style.paddingBottom = '80px';
-    } else {
-      document.body.style.paddingBottom = '0';
-    }
-    return () => {
-      document.body.style.paddingBottom = '0';
-    };
-  }, [selectedSkip]);
-
   return (
     <div className="min-h-screen bg-gray-950 text-white font-sans">
       <StepNav />
