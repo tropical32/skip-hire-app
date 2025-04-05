@@ -547,7 +547,10 @@ const App = () => {
   const [darkMode, setDarkMode] = useState(true);
   const toggleDarkMode = () => setDarkMode(!darkMode);
 
-  const { data: skipData = [], isLoading }: { data: Skip[] } = useSWR(
+  const {
+    data: skipData = [],
+    isLoading,
+  }: { data: Skip[]; isLoading: boolean } = useSWR(
     "https://app.wewantwaste.co.uk/api/skips/by-location?postcode=NR32&area=Lowestoft",
     fetcher,
   );
