@@ -434,7 +434,9 @@ const SkipCard = ({
         <div>
           {skip.price_before_vat !== null ? (
             <>
-              <span className="text-2xl font-bold text-blue-600">
+              <span
+                className={`text-2xl font-bold ${darkMode ? "text-blue-500" : "text-blue-600"}`}
+              >
                 £{skip.price_before_vat.toFixed(2)}
               </span>
               <span
@@ -444,7 +446,11 @@ const SkipCard = ({
               </span>
             </>
           ) : (
-            <span className="text-2xl font-bold text-blue-600">POA</span>
+            <span
+              className={`text-2xl font-bold ${darkMode ? "text-blue-500" : "text-blue-600"}`}
+            >
+              POA
+            </span>
           )}
         </div>
       </div>
