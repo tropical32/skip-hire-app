@@ -544,19 +544,6 @@ const App = () => {
   const [darkMode, setDarkMode] = useState(true);
   const toggleDarkMode = () => setDarkMode(!darkMode);
 
-  // Load theme from localStorage on mount
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "light") {
-      setDarkMode(false);
-    }
-  }, []);
-
-  // Save theme preference to localStorage when it changes
-  useEffect(() => {
-    localStorage.setItem("theme", darkMode ? "dark" : "light");
-  }, [darkMode]);
-
   const [skipData, setSkipData] = useState<Skip[]>([]);
   useEffect(() => {
     fetch(
@@ -566,14 +553,6 @@ const App = () => {
 
   // State for selected skip (initialized with 12 Yard skip)
   const [selectedSkip, setSelectedSkip] = useState<Skip | null>(null);
-
-  // Set initial selected skip after data is loaded
-  useEffect(() => {
-    if (skipData.length > 0 && !selectedSkip) {
-      const twelveYardSkip = skipData.find((s) => s.size === 12);
-      setSelectedSkip(twelveYardSkip || skipData[0]);
-    }
-  }, [skipData, selectedSkip]);
 
   const [filterAllowedOnRoads, setFilterAllowedOnRoads] = useState(true);
   const [filterHeavyWaste, setFilterHeavyWaste] = useState(true);
