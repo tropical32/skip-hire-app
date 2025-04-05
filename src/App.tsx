@@ -1,7 +1,8 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 
 import roadSkip from "../public/road.png";
 import heavySkip from "../public/heavy.png";
+import useSWR from "swr";
 
 interface Skip {
   id: number;
@@ -538,18 +539,18 @@ const SelectionFooter = ({
   );
 };
 
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
 // --- Main App Component ---
 const App = () => {
   // Theme state
   const [darkMode, setDarkMode] = useState(true);
   const toggleDarkMode = () => setDarkMode(!darkMode);
 
-  const [skipData, setSkipData] = useState<Skip[]>([]);
-  useEffect(() => {
-    fetch(
-      "https://app.wewantwaste.co.uk/api/skips/by-location?postcode=NR32&area=Lowestoft",
-    ).then((data) => data.json().then((json) => setSkipData(json)));
-  }, []);
+  const { data: skipData = [] }: { data: Skip[] } = useSWR(
+    "https://app.wewantwaste.co.uk/api/skips/by-location?postcode=NR32&area=Lowestoft",
+    fetcher,
+  );
 
   // State for selected skip (initialized with 12 Yard skip)
   const [selectedSkip, setSelectedSkip] = useState<Skip | null>(null);
