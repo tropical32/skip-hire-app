@@ -1,5 +1,8 @@
 import { useState, useMemo, useEffect } from 'react';
 
+import roadSkip from "../public/road.png";
+import heavySkip from "../public/heavy.png";
+
 interface Skip {
   id: number;
   size: number;
@@ -153,11 +156,48 @@ const SkipCard = ({ skip, selectedSkip, onSelect }: { skip: Skip, selectedSkip: 
       )}
 
       <div className="relative">
-        <img
-          src={`https://images.unsplash.com/photo-1590496793929-36417d3117de?q=80&w=800`}
-          alt={`${skip.size} Yard Skip`}
-          className="w-full h-48 object-cover rounded-md mb-4 shadow-md"
-        />
+        {skip.allows_heavy_waste && skip.allowed_on_road ? (
+          <div className="relative h-48 w-full overflow-hidden rounded-md mb-4 shadow-md">
+            {/* Diagonal split container */}
+            <div className="absolute inset-0">
+              {/* First image - covers the entire area */}
+              <img
+                src={roadSkip}
+                alt={`${skip.size} Yard Road Skip`}
+                className="absolute w-full h-full object-cover"
+              />
+
+              {/* Second image - shown with clip path for diagonal effect */}
+              <div className="absolute inset-0" style={{
+                clipPath: 'polygon(100% 0, 100% 100%, 0 100%)',
+                overflow: 'hidden'
+              }}>
+                <img
+                  src={heavySkip}
+                  alt={`${skip.size} Yard Heavy Skip`}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* Diagonal dividing line */}
+              <div className="absolute inset-0" style={{
+                background: 'linear-gradient(to bottom right, transparent calc(50% - 1px), white, transparent calc(50% + 1px))'
+              }}></div>
+            </div>
+          </div>
+        ) : skip.allowed_on_road ? (
+          <img
+            src={roadSkip}
+            alt={`${skip.size} Yard Skip`}
+            className="w-full h-48 object-cover rounded-md mb-4 shadow-md"
+          />
+        ) : (
+          <img
+            src={heavySkip}
+            alt={`${skip.size} Yard Skip`}
+            className="w-full h-48 object-cover rounded-md mb-4 shadow-md"
+          />
+        )}
 
         <div className="absolute top-3 right-2 z-10 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg">
           {skip.size} Yards
@@ -247,8 +287,6 @@ const SelectionFooter = ({ selectedSkip }: { selectedSkip: Skip | null }) => {
   );
 };
 
-// TODO: fetch from: 
-
 // --- Main App Component ---
 const App = () => {
   const [skipData, setSkipData] = useState<Skip[]>([]);
@@ -256,23 +294,28 @@ const App = () => {
     fetch("https://app.wewantwaste.co.uk/api/skips/by-location?postcode=NR32&area=Lowestoft").then(data => data.json().then(json => setSkipData(json)));
   }, []);
 
-  console.log(skipData)
-
   // State for selected skip (initialized with 12 Yard skip)
   const [selectedSkip, setSelectedSkip] = useState(() =>
     skipData.find(s => s.id === 12) || null
   );
 
-  // State for filter
-  const [filter, setFilter] = useState('all');
+  const [filterAllowedOnRoads, setFilterAllowedOnRoads] = useState(true);
+  const [filterHeavyWaste, setFilterHeavyWaste] = useState(true);
 
-  // Filtered skips
+  const roadSkips = useMemo(() => {
+    return skipData.filter(skip => skip.allowed_on_road);
+  }, [skipData]);
+
+  const heavySkips = useMemo(() => {
+    return skipData.filter(skip => skip.allows_heavy_waste);
+  }, [skipData]);
+
   const filteredSkips = useMemo(() => {
-    if (filter === 'all') return skipData;
-    if (filter === 'road') return skipData.filter(skip => skip.allowed_on_road);
-    if (filter === 'heavy') return skipData.filter(skip => skip.allows_heavy_waste);
-    return skipData;
-  }, [filter, skipData]);
+    if (filterAllowedOnRoads && filterHeavyWaste) return skipData;
+    if (filterAllowedOnRoads) return roadSkips;
+    if (filterHeavyWaste) return heavySkips;
+    return []
+  }, [filterAllowedOnRoads, filterHeavyWaste, heavySkips, roadSkips, skipData]);
 
   const handleSelectSkip = (skip: Skip) => {
     setSelectedSkip(skip);
@@ -290,22 +333,16 @@ const App = () => {
 
           {/* Filter bar */}
           <div className="flex justify-center mb-6">
-            <div className="inline-flex p-1 bg-gray-900 rounded-lg">
+            <div className="inline-flex gap-3 p-1 bg-gray-900 rounded-lg">
               <button
-                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${filter === 'all' ? 'bg-blue-600 text-white' : 'hover:bg-gray-800'}`}
-                onClick={() => setFilter('all')}
-              >
-                All Skips
-              </button>
-              <button
-                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${filter === 'road' ? 'bg-blue-600 text-white' : 'hover:bg-gray-800'}`}
-                onClick={() => setFilter('road')}
+                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${filterAllowedOnRoads ? 'bg-blue-600 text-white' : 'hover:bg-gray-800'}`}
+                onClick={() => setFilterAllowedOnRoads(x => !x)}
               >
                 Road Placement
               </button>
               <button
-                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${filter === 'heavy' ? 'bg-blue-600 text-white' : 'hover:bg-gray-800'}`}
-                onClick={() => setFilter('heavy')}
+                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${filterHeavyWaste ? 'bg-blue-600 text-white' : 'hover:bg-gray-800'}`}
+                onClick={() => setFilterHeavyWaste(x => !x)}
               >
                 Heavy Waste
               </button>
