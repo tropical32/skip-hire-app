@@ -20,23 +20,6 @@ interface Skip {
   transport_cost: number | null;
 }
 
-// --- Icons ---
-const CheckIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="3"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M20 6 9 17l-5-5"></path>
-  </svg>
-);
-
 const AlertTriangleIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -254,14 +237,6 @@ const SkipCard = ({
       ${isSelected ? "border-blue-600 bg-blue-900/10 shadow-lg shadow-blue-900/20" : "border-gray-700 hover:border-blue-600/50 hover:shadow-md hover:shadow-blue-900/10"}`}
       onClick={() => onSelect(skip)}
     >
-      {isSelected && (
-        <div className="absolute top-4 right-4 z-10">
-          <div className="text-blue-600">
-            <CheckIcon />
-          </div>
-        </div>
-      )}
-
       <div className="relative">
         {skip.allows_heavy_waste && skip.allowed_on_road ? (
           <div className="relative h-48 w-full overflow-hidden rounded-md mb-4 shadow-md">
