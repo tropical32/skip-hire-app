@@ -164,55 +164,148 @@ const CreditCardIcon = () => (
   </svg>
 );
 
-// --- Step Nav Component ---
-const StepNav = () => {
+// Sun icon for theme toggle
+const SunIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="12" cy="12" r="4"></circle>
+    <path d="M12 2v2"></path>
+    <path d="M12 20v2"></path>
+    <path d="m4.93 4.93 1.41 1.41"></path>
+    <path d="m17.66 17.66 1.41 1.41"></path>
+    <path d="M2 12h2"></path>
+    <path d="M20 12h2"></path>
+    <path d="m6.34 17.66-1.41 1.41"></path>
+    <path d="m19.07 4.93-1.41 1.41"></path>
+  </svg>
+);
+
+// Moon icon for theme toggle
+const MoonIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+  </svg>
+);
+
+// Theme Toggle Component
+const ThemeToggle = ({
+  darkMode,
+  toggleDarkMode,
+}: {
+  darkMode: boolean;
+  toggleDarkMode: () => void;
+}) => {
   return (
-    <div className="flex justify-center mb-8 overflow-x-auto px-4 py-6">
+    <button
+      onClick={toggleDarkMode}
+      className={`fixed top-4 right-4 p-2 rounded-full z-50 transition-colors duration-300 ${
+        darkMode
+          ? "bg-gray-800 text-yellow-400 hover:bg-gray-700"
+          : "bg-blue-100 text-blue-900 hover:bg-blue-200"
+      }`}
+      aria-label="Toggle theme"
+    >
+      {darkMode ? <SunIcon /> : <MoonIcon />}
+    </button>
+  );
+};
+
+// --- Step Nav Component ---
+const StepNav = ({ darkMode }: { darkMode: boolean }) => {
+  return (
+    <div
+      className={`flex justify-center mb-8 overflow-x-auto px-4 py-6 ${darkMode ? "bg-gray-900" : "bg-gray-50 shadow-md"}`}
+    >
       <div className="flex items-center space-x-4">
         {/* Active steps */}
-        <button className="flex items-center whitespace-nowrap transition-colors text-blue-600 cursor-pointer hover:text-blue-500">
+        <button
+          className={`flex items-center whitespace-nowrap transition-colors ${darkMode ? "text-blue-500" : "text-blue-600"} cursor-pointer hover:text-blue-500`}
+        >
           <MapPinIcon />
-          <span className="ml-2 text-white">Postcode</span>
+          <span className={`ml-2 ${darkMode ? "text-white" : "text-gray-800"}`}>
+            Postcode
+          </span>
         </button>
         <div className="w-16 h-px bg-blue-600"></div>
 
-        <button className="flex items-center whitespace-nowrap transition-colors text-blue-600 cursor-pointer hover:text-blue-500">
+        <button
+          className={`flex items-center whitespace-nowrap transition-colors ${darkMode ? "text-blue-500" : "text-blue-600"} cursor-pointer hover:text-blue-500`}
+        >
           <TrashIcon />
-          <span className="ml-2 text-white">Waste Type</span>
+          <span className={`ml-2 ${darkMode ? "text-white" : "text-gray-800"}`}>
+            Waste Type
+          </span>
         </button>
         <div className="w-16 h-px bg-blue-600"></div>
 
-        <button className="flex items-center whitespace-nowrap transition-colors text-blue-600 cursor-pointer hover:text-blue-500">
+        <button
+          className={`flex items-center whitespace-nowrap transition-colors ${darkMode ? "text-blue-500" : "text-blue-600"} cursor-pointer hover:text-blue-500`}
+        >
           <TruckIcon />
-          <span className="ml-2 text-white font-medium">Select Skip</span>
+          <span
+            className={`ml-2 ${darkMode ? "text-white" : "text-gray-800"} font-medium`}
+          >
+            Select Skip
+          </span>
         </button>
 
         {/* Inactive steps */}
-        <div className="w-16 h-px bg-gray-700"></div>
+        <div
+          className={`w-16 h-px ${darkMode ? "bg-gray-700" : "bg-gray-300"}`}
+        ></div>
         <button
           disabled
-          className="flex items-center whitespace-nowrap transition-colors text-white/60 cursor-not-allowed opacity-50"
+          className={`flex items-center whitespace-nowrap transition-colors ${darkMode ? "text-white/60" : "text-gray-400"} cursor-not-allowed opacity-50`}
         >
           <ShieldIcon />
-          <span className="ml-2 text-white">Permit Check</span>
+          <span className={`ml-2 ${darkMode ? "text-white" : "text-gray-800"}`}>
+            Permit Check
+          </span>
         </button>
 
-        <div className="w-16 h-px bg-gray-700"></div>
+        <div
+          className={`w-16 h-px ${darkMode ? "bg-gray-700" : "bg-gray-300"}`}
+        ></div>
         <button
           disabled
-          className="flex items-center whitespace-nowrap transition-colors text-white/60 cursor-not-allowed opacity-50"
+          className={`flex items-center whitespace-nowrap transition-colors ${darkMode ? "text-white/60" : "text-gray-400"} cursor-not-allowed opacity-50`}
         >
           <CalendarIcon />
-          <span className="ml-2 text-white">Choose Date</span>
+          <span className={`ml-2 ${darkMode ? "text-white" : "text-gray-800"}`}>
+            Choose Date
+          </span>
         </button>
 
-        <div className="w-16 h-px bg-gray-700"></div>
+        <div
+          className={`w-16 h-px ${darkMode ? "bg-gray-700" : "bg-gray-300"}`}
+        ></div>
         <button
           disabled
-          className="flex items-center whitespace-nowrap transition-colors text-white/60 cursor-not-allowed opacity-50"
+          className={`flex items-center whitespace-nowrap transition-colors ${darkMode ? "text-white/60" : "text-gray-400"} cursor-not-allowed opacity-50`}
         >
           <CreditCardIcon />
-          <span className="ml-2 text-white">Payment</span>
+          <span className={`ml-2 ${darkMode ? "text-white" : "text-gray-800"}`}>
+            Payment
+          </span>
         </button>
       </div>
     </div>
@@ -224,17 +317,22 @@ const SkipCard = ({
   skip,
   selectedSkip,
   onSelect,
+  darkMode,
 }: {
   skip: Skip;
   selectedSkip: Skip | null;
   onSelect: (skip: Skip) => void;
+  darkMode: boolean;
 }) => {
   const isSelected = selectedSkip?.id === skip.id;
 
   return (
     <div
-      className={`relative rounded-lg border-2 p-6 transition-all duration-300 bg-gray-900 text-white cursor-pointer
-      ${isSelected ? "border-blue-600 bg-blue-900/10 shadow-lg shadow-blue-900/20" : "border-gray-700 hover:border-blue-600/50 hover:shadow-md hover:shadow-blue-900/10"}`}
+      className={`relative rounded-lg border-2 p-6 transition-all duration-300 ${
+        darkMode
+          ? `${isSelected ? "border-blue-600 bg-blue-900/10 shadow-lg shadow-blue-900/20" : "border-gray-700 hover:border-blue-600/50 hover:shadow-md hover:shadow-blue-900/10"} bg-gray-900 text-white`
+          : `${isSelected ? "border-blue-600 bg-blue-50 shadow-lg shadow-blue-200" : "border-gray-200 hover:border-blue-300 hover:shadow-md hover:shadow-blue-100"} bg-white text-gray-800`
+      } cursor-pointer transform hover:scale-[1.02] hover:-translate-y-1`}
       onClick={() => onSelect(skip)}
     >
       <div className="relative">
@@ -294,17 +392,25 @@ const SkipCard = ({
 
         <div className="absolute bottom-3 left-2 z-10 flex flex-col gap-2">
           {!skip.allowed_on_road && (
-            <div className="bg-black/90 backdrop-blur-sm px-3 py-1.5 rounded-lg flex items-center gap-2">
+            <div
+              className={`px-3 py-1.5 rounded-lg flex items-center gap-2 ${darkMode ? "bg-black/90" : "bg-white/100"}`}
+            >
               <AlertTriangleIcon />
-              <span className="text-xs font-medium text-yellow-500">
+              <span
+                className={`text-xs font-medium text-slate-800 ${darkMode ? "text-yellow-500" : "text-slate-800"}`}
+              >
                 Private Property Only
               </span>
             </div>
           )}
           {!skip.allows_heavy_waste && (
-            <div className="bg-black/90 backdrop-blur-sm px-3 py-1.5 rounded-lg flex items-center gap-2">
+            <div
+              className={`backdrop-blur-sm px-3 py-1.5 rounded-lg flex items-center gap-2 ${darkMode ? "bg-black/90" : "bg-white/100"}`}
+            >
               <AlertTriangleIcon />
-              <span className="text-xs font-medium text-yellow-500">
+              <span
+                className={`text-xs font-medium text-slate-800 ${darkMode ? "text-yellow-500" : "text-slate-800"}`}
+              >
                 No Heavy Waste
               </span>
             </div>
@@ -312,10 +418,14 @@ const SkipCard = ({
         </div>
       </div>
 
-      <h3 className="text-xl font-bold mb-2 text-white">
+      <h3
+        className={`text-xl font-bold mb-2 ${darkMode ? "text-white" : "text-gray-800"}`}
+      >
         {skip.size} Yard Skip
       </h3>
-      <p className="text-sm text-gray-400 mb-6">
+      <p
+        className={`text-sm ${darkMode ? "text-gray-400" : "text-gray-500"} mb-6`}
+      >
         {skip.hire_period_days} day hire period
       </p>
 
@@ -326,7 +436,11 @@ const SkipCard = ({
               <span className="text-2xl font-bold text-blue-600">
                 £{skip.price_before_vat.toFixed(2)}
               </span>
-              <span className="text-sm text-gray-400 ml-2">per week</span>
+              <span
+                className={`text-sm ${darkMode ? "text-gray-400" : "text-gray-500"} ml-2`}
+              >
+                per week
+              </span>
             </>
           ) : (
             <span className="text-2xl font-bold text-blue-600">POA</span>
@@ -340,7 +454,13 @@ const SkipCard = ({
           onSelect(skip);
         }}
         className={`w-full py-3 px-4 rounded-md transition-all duration-300 flex items-center justify-center gap-2 text-sm font-medium
-        ${isSelected ? "bg-blue-600 text-white hover:bg-blue-700" : "bg-gray-800 text-white hover:bg-gray-700"}`}
+        ${
+          isSelected
+            ? "bg-blue-600 text-white hover:bg-blue-700"
+            : darkMode
+              ? "bg-gray-800 text-white hover:bg-gray-700"
+              : "bg-gray-100 text-gray-800 hover:bg-gray-200"
+        }`}
       >
         <span>{isSelected ? "Selected" : "Select This Skip"}</span>
         {!isSelected && <ArrowRightIcon />}
@@ -350,18 +470,34 @@ const SkipCard = ({
 };
 
 // --- Selection Footer Component ---
-const SelectionFooter = ({ selectedSkip }: { selectedSkip: Skip | null }) => {
+const SelectionFooter = ({
+  selectedSkip,
+  darkMode,
+}: {
+  selectedSkip: Skip | null;
+  darkMode: boolean;
+}) => {
   if (!selectedSkip) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-700 p-4 z-50 animate-slideUp shadow-lg shadow-black/50">
+    <div
+      className={`fixed bottom-0 left-0 right-0 ${
+        darkMode
+          ? "bg-gray-900 border-t border-gray-700 shadow-lg shadow-black/50"
+          : "bg-white border-t border-gray-200 shadow-lg shadow-gray-200/50"
+      } p-4 z-50 animate-slideUp`}
+    >
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between px-4">
         <div className="flex items-center gap-6 mb-4 sm:mb-0">
           <div>
-            <h3 className="font-medium text-white">
+            <h3
+              className={`font-medium ${darkMode ? "text-white" : "text-gray-800"}`}
+            >
               {selectedSkip.size} Yard Skip
             </h3>
-            <p className="text-sm text-gray-400">
+            <p
+              className={`text-sm ${darkMode ? "text-gray-400" : "text-gray-500"}`}
+            >
               {selectedSkip.hire_period_days} day hire
             </p>
           </div>
@@ -371,7 +507,11 @@ const SelectionFooter = ({ selectedSkip }: { selectedSkip: Skip | null }) => {
                 <span className="text-2xl font-bold text-blue-600">
                   £{selectedSkip.price_before_vat.toFixed(2)}
                 </span>
-                <span className="text-sm text-gray-400 ml-2">per week</span>
+                <span
+                  className={`text-sm ${darkMode ? "text-gray-400" : "text-gray-500"} ml-2`}
+                >
+                  per week
+                </span>
               </>
             ) : (
               <span className="text-2xl font-bold text-blue-600">POA</span>
@@ -379,7 +519,13 @@ const SelectionFooter = ({ selectedSkip }: { selectedSkip: Skip | null }) => {
           </div>
         </div>
         <div className="flex items-center gap-4 w-full sm:w-auto">
-          <button className="px-4 py-2 rounded-md bg-gray-800 text-white border border-gray-600 hover:bg-gray-700 transition-colors text-sm font-medium">
+          <button
+            className={`px-4 py-2 rounded-md ${
+              darkMode
+                ? "bg-gray-800 text-white border border-gray-600 hover:bg-gray-700"
+                : "bg-gray-100 text-gray-800 border border-gray-200 hover:bg-gray-200"
+            } transition-colors text-sm font-medium`}
+          >
             Back
           </button>
           <button className="flex-1 sm:flex-none px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 text-sm font-medium">
@@ -394,6 +540,23 @@ const SelectionFooter = ({ selectedSkip }: { selectedSkip: Skip | null }) => {
 
 // --- Main App Component ---
 const App = () => {
+  // Theme state
+  const [darkMode, setDarkMode] = useState(true);
+  const toggleDarkMode = () => setDarkMode(!darkMode);
+
+  // Load theme from localStorage on mount
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "light") {
+      setDarkMode(false);
+    }
+  }, []);
+
+  // Save theme preference to localStorage when it changes
+  useEffect(() => {
+    localStorage.setItem("theme", darkMode ? "dark" : "light");
+  }, [darkMode]);
+
   const [skipData, setSkipData] = useState<Skip[]>([]);
   useEffect(() => {
     fetch(
@@ -402,9 +565,15 @@ const App = () => {
   }, []);
 
   // State for selected skip (initialized with 12 Yard skip)
-  const [selectedSkip, setSelectedSkip] = useState(
-    () => skipData.find((s) => s.id === 12) || null,
-  );
+  const [selectedSkip, setSelectedSkip] = useState<Skip | null>(null);
+
+  // Set initial selected skip after data is loaded
+  useEffect(() => {
+    if (skipData.length > 0 && !selectedSkip) {
+      const twelveYardSkip = skipData.find((s) => s.size === 12);
+      setSelectedSkip(twelveYardSkip || skipData[0]);
+    }
+  }, [skipData, selectedSkip]);
 
   const [filterAllowedOnRoads, setFilterAllowedOnRoads] = useState(true);
   const [filterHeavyWaste, setFilterHeavyWaste] = useState(true);
@@ -429,29 +598,53 @@ const App = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white font-sans">
-      <StepNav />
+    <div
+      className={`min-h-screen font-sans transition-colors duration-300 ${
+        darkMode ? "bg-gray-950 text-white" : "bg-gray-100 text-gray-800"
+      }`}
+    >
+      <ThemeToggle darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+      <StepNav darkMode={darkMode} />
 
       <main className="max-w-7xl mx-auto px-4 pb-32">
         <div>
-          <h2 className="text-2xl font-bold text-center mb-4">
+          <h2
+            className={`text-3xl font-bold text-center mb-4 ${darkMode ? "text-white" : "text-gray-800"}`}
+          >
             Choose Your Skip Size
           </h2>
-          <p className="text-gray-400 text-center mb-8">
-            Select the skip size that best suits your needs
+          <p
+            className={`${darkMode ? "text-gray-400" : "text-gray-600"} text-center mb-8 max-w-2xl mx-auto`}
+          >
+            Select the skip size that best suits your needs for your waste
+            disposal project
           </p>
 
           {/* Filter bar */}
-          <div className="flex justify-center mb-6">
-            <div className="inline-flex gap-3 p-1 bg-gray-900 rounded-lg">
+          <div className="flex justify-center mb-8">
+            <div
+              className={`inline-flex gap-3 p-1 rounded-lg ${darkMode ? "bg-gray-900" : "bg-white shadow-md"}`}
+            >
               <button
-                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${filterAllowedOnRoads ? "bg-blue-600 text-white" : "hover:bg-gray-800"}`}
+                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                  filterAllowedOnRoads
+                    ? "bg-blue-600 text-white"
+                    : darkMode
+                      ? "hover:bg-gray-800 text-gray-300"
+                      : "hover:bg-gray-100 text-gray-600"
+                }`}
                 onClick={() => setFilterAllowedOnRoads((x) => !x)}
               >
                 Road Placement
               </button>
               <button
-                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${filterHeavyWaste ? "bg-blue-600 text-white" : "hover:bg-gray-800"}`}
+                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                  filterHeavyWaste
+                    ? "bg-blue-600 text-white"
+                    : darkMode
+                      ? "hover:bg-gray-800 text-gray-300"
+                      : "hover:bg-gray-100 text-gray-600"
+                }`}
                 onClick={() => setFilterHeavyWaste((x) => !x)}
               >
                 Heavy Waste
@@ -459,18 +652,19 @@ const App = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {filteredSkips.map((skip) => (
               <SkipCard
                 key={skip.id}
                 skip={skip}
                 selectedSkip={selectedSkip}
                 onSelect={handleSelectSkip}
+                darkMode={darkMode}
               />
             ))}
           </div>
         </div>
-        <SelectionFooter selectedSkip={selectedSkip} />
+        <SelectionFooter selectedSkip={selectedSkip} darkMode={darkMode} />
       </main>
     </div>
   );
