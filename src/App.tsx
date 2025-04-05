@@ -335,8 +335,8 @@ const SkipCard = ({
       </div>
 
       <button
-        onClick={(e) => {
-          e.stopPropagation();
+        type="button"
+        onClick={() => {
           onSelect(skip);
         }}
         className={`w-full py-3 px-4 rounded-md transition-all duration-300 flex items-center justify-center gap-2 text-sm font-medium
