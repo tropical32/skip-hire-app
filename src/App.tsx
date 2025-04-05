@@ -511,7 +511,9 @@ const SelectionFooter = ({
           <div>
             {selectedSkip.price_before_vat !== null ? (
               <>
-                <span className="text-2xl font-bold text-blue-600">
+                <span
+                  className={`text-2xl font-bold ${darkMode ? "text-blue-500" : "text-blue-600"}`}
+                >
                   £{selectedSkip.price_before_vat.toFixed(2)}
                 </span>
                 <span
@@ -521,7 +523,11 @@ const SelectionFooter = ({
                 </span>
               </>
             ) : (
-              <span className="text-2xl font-bold text-blue-600">POA</span>
+              <span
+                className={`text-2xl font-bold ${darkMode ? "text-blue-500" : "text-blue-600"}`}
+              >
+                POA
+              </span>
             )}
           </div>
         </div>
