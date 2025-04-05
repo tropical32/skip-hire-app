@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 
-import roadSkip from "../public/road.png";
-import heavySkip from "../public/heavy.png";
+import roadSkip from "../public/road.avif";
+import heavySkip from "../public/heavy.avif";
 import useSWR from "swr";
 
 interface Skip {
