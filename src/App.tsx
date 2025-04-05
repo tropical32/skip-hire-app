@@ -91,7 +91,7 @@ const CreditCardIcon = () => (
 // --- Step Nav Component ---
 const StepNav = () => {
   return (
-    <div className="flex justify-center mb-8 overflow-x-auto">
+    <div className="flex justify-center mb-8 overflow-x-auto px-4 py-6">
       <div className="flex items-center space-x-4">
         {/* Active steps */}
         <button className="flex items-center whitespace-nowrap transition-colors text-blue-600 cursor-pointer hover:text-blue-500">
@@ -141,7 +141,7 @@ const SkipCard = ({ skip, selectedSkip, onSelect }: { skip: Skip, selectedSkip: 
   return (
     <div
       className={`relative rounded-lg border-2 p-6 transition-all duration-300 bg-gray-900 text-white cursor-pointer
-      ${isSelected ? 'border-blue-600 bg-blue-900/10 shadow-lg shadow-blue-900/20' : 'border-gray-700 hover:border-blue-600/50'}`}
+      ${isSelected ? 'border-blue-600 bg-blue-900/10 shadow-lg shadow-blue-900/20' : 'border-gray-700 hover:border-blue-600/50 hover:shadow-md hover:shadow-blue-900/10'}`}
       onClick={() => onSelect(skip)}
     >
       {isSelected && (
@@ -216,8 +216,8 @@ const SelectionFooter = ({ selectedSkip }: { selectedSkip: Skip | null }) => {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-700 p-4 z-50 animate-slideUp shadow-lg shadow-black/50">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <div className="flex items-center gap-6">
+      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between px-4">
+        <div className="flex items-center gap-6 mb-4 sm:mb-0">
           <div>
             <h3 className="font-medium text-white">{selectedSkip.size} Yard Skip</h3>
             <p className="text-sm text-gray-400">{selectedSkip.hire_period_days} day hire</p>
@@ -233,11 +233,11 @@ const SelectionFooter = ({ selectedSkip }: { selectedSkip: Skip | null }) => {
             )}
           </div>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 w-full sm:w-auto">
           <button className="px-4 py-2 rounded-md bg-gray-800 text-white border border-gray-600 hover:bg-gray-700 transition-colors text-sm font-medium">
             Back
           </button>
-          <button className="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition-colors flex items-center gap-2 text-sm font-medium">
+          <button className="flex-1 sm:flex-none px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 text-sm font-medium">
             Continue
             <ArrowRightIcon />
           </button>
