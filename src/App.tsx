@@ -547,7 +547,7 @@ const App = () => {
   const [darkMode, setDarkMode] = useState(true);
   const toggleDarkMode = () => setDarkMode(!darkMode);
 
-  const { data: skipData = [] }: { data: Skip[] } = useSWR(
+  const { data: skipData = [], isLoading }: { data: Skip[] } = useSWR(
     "https://app.wewantwaste.co.uk/api/skips/by-location?postcode=NR32&area=Lowestoft",
     fetcher,
   );
@@ -631,6 +631,14 @@ const App = () => {
               </button>
             </div>
           </div>
+
+          {isLoading && (
+            <p
+              className={`${darkMode ? "text-gray-400" : "text-gray-600"} text-center mb-8 max-w-2xl mx-auto`}
+            >
+              Loading...
+            </p>
+          )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {filteredSkips.map((skip) => (
