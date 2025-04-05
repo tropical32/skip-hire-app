@@ -217,7 +217,7 @@ const ThemeToggle = ({
   return (
     <button
       onClick={toggleDarkMode}
-      className={`fixed top-4 right-4 p-2 rounded-full z-50 transition-colors duration-300 ${
+      className={`absolute top-4 right-4 p-2 rounded-full z-50 transition-colors duration-300 ${
         darkMode
           ? "bg-gray-800 text-yellow-400 hover:bg-gray-700"
           : "bg-blue-100 text-blue-900 hover:bg-blue-200"
@@ -235,7 +235,7 @@ const StepNav = ({ darkMode }: { darkMode: boolean }) => {
     <div
       className={`flex justify-center mb-8 overflow-x-auto px-4 py-6 ${darkMode ? "bg-gray-900" : "bg-gray-50 shadow-md"}`}
     >
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center overflow-x-auto gap-4">
         {/* Active steps */}
         <button
           className={`flex items-center whitespace-nowrap transition-colors ${darkMode ? "text-blue-500" : "text-blue-600"} cursor-pointer hover:text-blue-500`}
@@ -245,7 +245,7 @@ const StepNav = ({ darkMode }: { darkMode: boolean }) => {
             Postcode
           </span>
         </button>
-        <div className="w-16 h-px bg-blue-600"></div>
+        <div className="min-w-8 w-16 h-px bg-blue-600"></div>
 
         <button
           className={`flex items-center whitespace-nowrap transition-colors ${darkMode ? "text-blue-500" : "text-blue-600"} cursor-pointer hover:text-blue-500`}
@@ -255,7 +255,7 @@ const StepNav = ({ darkMode }: { darkMode: boolean }) => {
             Waste Type
           </span>
         </button>
-        <div className="w-16 h-px bg-blue-600"></div>
+        <div className="w-16 min-w-8 h-px bg-blue-600"></div>
 
         <button
           className={`flex items-center whitespace-nowrap transition-colors ${darkMode ? "text-blue-500" : "text-blue-600"} cursor-pointer hover:text-blue-500`}
@@ -270,7 +270,7 @@ const StepNav = ({ darkMode }: { darkMode: boolean }) => {
 
         {/* Inactive steps */}
         <div
-          className={`w-16 h-px ${darkMode ? "bg-gray-700" : "bg-gray-300"}`}
+          className={`w-16 min-w-8 h-px ${darkMode ? "bg-gray-700" : "bg-gray-300"}`}
         ></div>
         <button
           disabled
@@ -283,7 +283,7 @@ const StepNav = ({ darkMode }: { darkMode: boolean }) => {
         </button>
 
         <div
-          className={`w-16 h-px ${darkMode ? "bg-gray-700" : "bg-gray-300"}`}
+          className={`w-16 min-w-8 h-px ${darkMode ? "bg-gray-700" : "bg-gray-300"}`}
         ></div>
         <button
           disabled
@@ -296,7 +296,7 @@ const StepNav = ({ darkMode }: { darkMode: boolean }) => {
         </button>
 
         <div
-          className={`w-16 h-px ${darkMode ? "bg-gray-700" : "bg-gray-300"}`}
+          className={`w-16 min-w-8 h-px ${darkMode ? "bg-gray-700" : "bg-gray-300"}`}
         ></div>
         <button
           disabled
