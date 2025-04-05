@@ -426,7 +426,6 @@ const App = () => {
 
   const handleSelectSkip = (skip: Skip) => {
     setSelectedSkip(skip);
-    console.log("Selected Skip:", skip);
   };
 
   return (
